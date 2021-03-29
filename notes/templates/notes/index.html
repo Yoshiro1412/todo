@@ -1,0 +1,16 @@
+{% if error %}<p>{{error}}</p>{% endif %}
+
+<form action="{% url 'notes:add' %}" method="post">
+{% csrf_token %}
+    <input type="text" name="task" id="task">
+    <input type="submit" value="Add">
+</form>
+<form action="{% url 'notes:remove' %}" method="post">
+{% csrf_token %}
+    <ul>
+    {% for task in tasks %}
+        <li>{{task.task}} - <input type="checkbox" name="done" id="done{{forloop.counter}}" value={{task.id}}></li>
+    {% endfor %}
+    </ul>
+    <input type="submit" value="Remove">
+</form>
